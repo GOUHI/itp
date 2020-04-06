@@ -1,0 +1,29 @@
+/* 全局样式表 */
+html,body,#app {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+/* 全局背景色 */
+.bg-c-f7{
+    background-color: #f7f7f7;
+}
+/* 左浮动 */
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+
+/* clearfix清除浮动 */
+.clearfix::after{
+    content:".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix{display: inline-block;}
+* html .clearfix{height: 1%;}
+.clearfix{display: block;}
