@@ -243,3 +243,26 @@ function getChild($list, $id = 0,$type = 1)
     return array_values($child);
 }
 
+/**
+ * 获取时间参数
+ * @param string $type  时间类型
+ * date 当前时间date模式
+ * time 当前时间秒级时间戳
+ * @return int
+ */
+function getTime($type =''){
+    $retTime = '';
+    switch ($type){
+        case 'date':
+        $retTime = date('Y-m-d H:i:s',time());
+        break;
+        case 'time':
+            $retTime = time();
+            break;
+        default:
+            $retTime = time();
+    }
+
+    return $retTime;
+}
+

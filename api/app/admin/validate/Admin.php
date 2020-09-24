@@ -9,7 +9,7 @@ use think\Validate;
 class Admin extends Validate
 {
     protected $rule = [
-        'account|账户' => 'require|min:5|max:20',
+        'account|账户' => 'require|min:4|max:20',
         'password|密码' => 'require|min:32|max:32',
         'role_id|角色' => 'require|number',
         'status|状态' => 'require|in:1,2'

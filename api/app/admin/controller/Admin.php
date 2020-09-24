@@ -62,7 +62,12 @@ class Admin extends BaseController
         }
 
         try {
-            return ret(200,'新增管理员成功');
+            $data['create_time'] = getTime('date');
+            if(AdminModel::insert($data) !== false){
+                return ret(200);
+            }
+
+            return ret(400,'新增管理员失败');
         } catch (\Exception $e) {
             recordLog('sql错误', $e->getMessage(), 'system', 3, 'error');
             return ret(404, '服务器异常请联系管理员');

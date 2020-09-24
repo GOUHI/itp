@@ -124,7 +124,7 @@ import {
 } from "../../assets/js/api/admin";
 import { roleIndex } from "../../assets/js/api/role";
 import { LoadingBarConfig } from "view-design";
-import { msg } from "../../assets/js/utils";
+import { getMd5, msg } from "../../assets/js/utils";
 export default {
   data() {
     return {
@@ -357,7 +357,9 @@ export default {
 
         // 判断是编辑还是新增
         if (this.drawer.id == 0) {
-          res = await adminSave(this.drawer.formData);
+          const self = this
+          self.drawer.formData.password = getMd5(self.drawer.formData.password)
+          res = await adminSave(self.drawer.formData);
         } else {
           // 把需要修改的id存入数组中
           this.drawer.formData.id = this.drawer.id;
