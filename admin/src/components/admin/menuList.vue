@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <h3>菜单管理</h3>
+    <h3>菜单配置</h3>
     <!-- <div class="search">
       <div class="clearfix">
         <Input
@@ -26,12 +26,14 @@
         <Button type="warning" class="searchItem">重置</Button>
       </div>
     </div>-->
+    <!-- 表格头部 -->
     <div class="operating">
       <Button type="success" class="searchItem" @click="drawer.isShow = true">添加</Button>
       <Poptip confirm title="确认删除嘛?" @on-ok="handleDeleteButton">
         <Button type="error" class="searchItem">删除</Button>
       </Poptip>
     </div>
+    <!-- 表格区域 -->
     <div class="table">
       <Table
         row-key="id"
@@ -150,6 +152,7 @@ export default {
       },
       // 表格数据结构
       table: {
+        //列名
         columns: [
           {
             type: "selection",
@@ -190,13 +193,17 @@ export default {
             align: "center"
           }
         ],
+        //数据
         data: [],
+        //总条数
         total:0,
       },
 
       // 抽屉数据
       drawer: {
+        //是否显示开关
         isShow: false,
+        //判断是修改还是新增
         id: 0,
         styles: {
           height: "calc(100% - 55px)",
@@ -204,6 +211,7 @@ export default {
           paddingBottom: "53px",
           position: "static"
         },
+        //表单数据
         formData: {
           p_id: "",
           title: "",
@@ -211,6 +219,7 @@ export default {
           icon: "",
           to: ""
         },
+        //表单验证
         ruleValidate: {
           title: [
             {
@@ -398,10 +407,6 @@ export default {
           this.loading = false;
         }
       });
-    },
-    //删除操作
-    delete() {
-      console.log("delete");
     }
   }
 };

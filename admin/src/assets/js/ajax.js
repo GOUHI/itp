@@ -10,7 +10,7 @@ import {msg} from './utils'
 const service = axios.create({
     //   baseURL: process.env.NODE_ENV === 'production' ? process.env.BASE_API : '/', // api 的 base_url
     baseURL: '/admin/',
-    timeout: 2000 // 请求超时时间
+    timeout: 20000 // 请求超时时间
 })
 
 // request拦截器
@@ -61,12 +61,11 @@ service.interceptors.response.use(
         try {
             code = error.response.data.code
         } catch (e) {
-            console.log('123');
             if (error.toString().indexOf('Error: timeout') !== -1) {
-                Notification.error({
-                    title: '网络请求超时',
-                    duration: 2500
-                })
+                // Notification.error({
+                //     title: '网络请求超时',
+                //     duration: 2500
+                // })
                 return Promise.reject(error)
             }
             if (error.toString().indexOf('Error: Network Error') !== -1) {

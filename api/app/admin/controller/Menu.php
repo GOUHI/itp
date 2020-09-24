@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace app\admin\controller;
 
 use app\admin\model\AdminMenu;
-use app\admin\validate\Admin;
 use app\BaseController;
 use think\Request;
 
@@ -47,7 +46,7 @@ class Menu extends BaseController
      * @param  \think\Request $request
      * @return \think\Response
      */
-    public function save()
+    public function save(Request $request)
     {
         //赋值
         $data['p_id'] = input('post.p_id', 0, 'trim');
@@ -186,13 +185,16 @@ class Menu extends BaseController
             recordLog('sql错误', $e->getMessage(), 'system', 3, 'error');
             return ret(404, '服务器异常请联系管理员');
         }
-        ret(200, $ids);
     }
 
     public function getMenuList()
     {
         $menuObj = AdminMenu::select();
         if (!$menuObj->isEmpty()) {
+            // 循环插入展开属性
+            foreach ($menuObj as $key => $value) {
+                $menuObj[$key]['expand'] = true;
+            }
             return ret(200, '菜单获取成功', getChild($menuObj));
         }
 

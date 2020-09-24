@@ -5,6 +5,7 @@ namespace app\admin\controller;
 
 use app\admin\model\Admin;
 use app\admin\model\AdminMenu;
+use app\admin\model\AdminRole;
 use app\BaseController;
 use think\Request;
 
@@ -20,7 +21,6 @@ class Login extends BaseController
         //获取参数
         $data['account'] = input('post.account','','trim');
         $data['password'] = input('post.password','','trim');
-
         //进行验证
         $validate = new \app\admin\validate\Admin();
         if(!$validate->scene('login')->check($data)){
@@ -29,7 +29,9 @@ class Login extends BaseController
 
         $adminInfo = Admin::where('account',$data['account'])->find();
         $adminInfo->token='123';
-        $adminInfo->menu = getChild(AdminMenu::select());
+        Admin::where('id',$adminInfo->id)->update(['token'=>'123']);
+        $menus = AdminRole::where('id',$adminInfo->role_id)->value('menu');
+        $adminInfo->menu = getChild(AdminMenu::whereIn('id',$menus)->select());
         return ret(200,'登录成功',$adminInfo);
     }
 
